@@ -14,7 +14,16 @@ include conf.mk
 # We fix the PATH to avoid differences due to a personal non-standard PATH.
 RUN_MAKE = HOME="`cd .. && pwd`" PATH="`cd .. && pwd`/bin:/usr/bin:/bin" make
 
-all: mirror-stuff done-lwtools done-cmoc done-gccretro done-toolshed done-nitros9 done-frobio
+TARGETS = mirror-stuff done-lwtools done-cmoc
+ifeq ($(UNAME),"Darwin")
+TARGETS += done-gccretro
+endif
+TARGETS += done-toolshed done-nitros9
+ifeq ($(UNAME),"Darwin")
+TARGETS += done-frobio
+endif
+
+all: $(TARGETS)
 
 run-lemma: all
 	make -C build-frobio run-lemma

@@ -17,7 +17,16 @@
 
 include ../conf.mk
 
-all: $(COCO_LWTOOLS_TARBALL) $(COCO_CMOC_TARBALL) $(COCO_GCCRETRO_TARBALL) toolshed nitros9 frobio eou-all
+TARGETS = $(COCO_LWTOOLS_TARBALL) $(COCO_CMOC_TARBALL)
+ifeq ($(UNAME),"Darwin")
+TARGETS += $(COCO_GCCRETRO_TARBALL)
+endif
+TARGETS += toolshed nitros9 eou-all
+ifeq ($(UNAME),"Darwin")
+TARGETS += frobio
+endif
+
+all: $(TARGETS)
 
 $(COCO_LWTOOLS_TARBALL):
 	set -x; test -s $@ || curl -O $(COCO_LWTOOLS_URL)
@@ -30,7 +39,9 @@ toolshed:
 nitros9:
 	set -x; test -s $@ || git clone $(COCO_NITROS9_REPO)
 frobio:
+	ifne ($(UNAME),"Darwin")
 	set -x; test -s $@ || git clone $(COCO_FROBIO_REPO)
+	endif
 
 eou-all: eou-h6309 eou-m6809
 

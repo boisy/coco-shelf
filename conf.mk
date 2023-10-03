@@ -2,10 +2,12 @@
 #
 # You can edit version numbers to upgrade packages.
 
+UNAME:=$(shell uname)
 S:=$(shell pwd)
 export SHELL:=/bin/bash   # Putting this 1st seems to make PATH work.
 export HOME:=$S
 export PATH:=$S/bin:/usr/bin:/bin
+export UNAME:=$(UNAME)
 
 export COCO_LWTOOLS_VERSION:=lwtools-4.21
 export COCO_CMOC_VERSION:=cmoc-0.1.85
@@ -19,8 +21,8 @@ export COCO_GCCRETRO_TARBALL=$(COCO_GCCRETRO_VERSION).tar.bz2
 # change "https://github.com/" to
 #        "git@github.com:"
 # on each of these 3 REPO lines, and add ".git" to the end of each.
-COCO_TOOLSHED_REPO:=https://github.com/n6il/toolshed
-COCO_NITROS9_REPO:=https://github.com/n6il/nitros9
+COCO_TOOLSHED_REPO:=git@github.com:nitros9project/toolshed.git
+COCO_NITROS9_REPO:=git@github.com:nitros9project/nitros9.git
 COCO_FROBIO_REPO:=https://github.com/strickyak/frobio
 
 COCO_LWTOOLS_URL:="http://www.lwtools.ca/releases/lwtools/$(COCO_LWTOOLS_TARBALL)"
